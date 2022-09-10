@@ -1,11 +1,12 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {Row,Col} from 'react-bootstrap'
+import {Row,Col,Badge} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function StudySession({title,subject,startDate,endDate,capacity,isCreator,id,users,flag,reloadStories}) {
+
+function StudySession({key,title,subject,startDate,startTime,endDate,endTime,capacity,isCreator,id,users,flag,reloadStories}) {
     const navigate = useNavigate();
     const handleopen =()=>
     {
@@ -37,25 +38,36 @@ function StudySession({title,subject,startDate,endDate,capacity,isCreator,id,use
     }
 
     return (
-        <Card className=" m-3">
-          <Card.Header className='fs-5'>{subject}</Card.Header>
+        <Card className=" m-3 text-light" style={{backgroundColor:"#a17ff5"}}>
+          <Card.Header >
+            <Row>
+              <Col xs={9}> <h4>{subject}</h4></Col>
+              <Col xs={3}>{isCreator && <Badge pill bg="warning" text="dark" className=' d-block mx-auto'>My Session</Badge>}</Col>
+            </Row>
+            </Card.Header>
+           
           <Card.Body>
-            <Card.Title>{title}</Card.Title>
+            <Card.Title className='m-2' >{title}</Card.Title>
+            <hr />
             <Card.Text>
               <Row>
-                <Col>  Capacity : {capacity  } </Col>
-                <Col>  Enrolled:{users.length}</Col>
+                <Col className='text-center' >  <h5>Capacity : <Badge bg="secondary">{capacity  }</Badge></h5>  </Col>
+                <Col className='text-center'> <h5>Enrolled : <Badge bg="secondary">{users.length}</Badge></h5>  </Col>
               </Row>
           
             </Card.Text>
             
-           {isCreator ?  (<Button onClick={handleopen}  variant="primary">OPEN</Button>) :
-           ( (users.some(enrolled_id => enrolled_id === localStorage.getItem("userId")) ) ? (<Button onClick={handleopen} variant="primary">OPEN</Button>) :(<Button onClick={()=>{handleEnroll(id); navigate(`/studysessions/${id}`);}} variant="primary" disabled={disabled()}>ENROLL</Button>))}
+            {isCreator ?  (<Button onClick={handleopen}  variant="primary" className='d-grid w-50 m-auto'>OPEN</Button>) :
+           ( (users.some(enrolled_id => enrolled_id === localStorage.getItem("userId")) ) ? (<Button onClick={handleopen} variant="primary" className='d-grid w-50 m-auto'>OPEN</Button>) :(<Button onClick={()=>{handleEnroll(id); navigate(`/studysessions/${id}`);}} variant="primary" disabled={disabled() } className='d-grid w-50 m-auto'>ENROLL</Button>))}
+           
           </Card.Body>
-          <Card.Footer className="text-muted">
+          <Card.Footer className="text-light">
             <Row>
-                <Col>START DATE : {startDate}</Col>
-                <Col>END DATE : {endDate}</Col>
+                <Col xs={12} md={6}>START DATE : {startDate}</Col>
+                <Col xs={12} md={6}>START TIME : {startTime} </Col>
+                <Col xs={12} md={6}>END DATE : {endDate}</Col> 
+                <Col xs={12} md={6}>END TIME : {endTime}</Col>    
+                
             </Row>
           </Card.Footer>
         </Card>

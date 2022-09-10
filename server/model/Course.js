@@ -16,13 +16,24 @@ const courseSchema  = new Schema({
     },
     startDate:
     {
-        type:Date,
+        type:String,
+        required:true,
+    }
+    ,
+    startTime:
+    {
+        type:String,
         required:true,
     }
     ,
     endDate :
     {
-        type:Date,
+        type:String,
+        required:true,
+    },
+    endTime:
+    {
+        type:String,
         required:true,
     }
     ,

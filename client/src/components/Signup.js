@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import {Row,Col,Button} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import signuppic from "./images/signup.png";
 
 function Signup() {
   const navigate = useNavigate();
@@ -33,10 +34,10 @@ function Signup() {
           <Col sm={12} md={10} className='mx-auto mt-5 mb-4'>
           <form className='border border-primary p-4  bg-opacity-50 shadow rounded-3' style={{color:'blue'}} onSubmit={handleSubmit(onFormSubmit)} >
                         <Row>
-                        <Col xs={12} md={6}></Col>
+                        <Col xs={12} md={6}><img src={signuppic} alt="" className='h-100 w-100' /></Col>
                         <Col xs={12} md={6}>
                         <div className='m-5'>
-                                <p className='display-6 text-center'>EXPERIENCE THE ERAVERSE!</p>
+                                <p className='fs-3 text-center'>ENROLL THE STUDYPLANNER!</p>
                             </div>
                             <hr />
                              {/* password */}
@@ -64,7 +65,7 @@ function Signup() {
                             </div>
                             {/* Signup button */}
                             <div className='mb-1 text-center'>
-                                <Button type='submit' variant='outline-info' size="lg">Signup</Button>
+                                <Button type='submit' variant='outline-primary' size="lg">Signup</Button>
                             </div>
                            
                         </Col>

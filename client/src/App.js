@@ -25,9 +25,9 @@ function App() {
   },[dispatch]);
 
   return (
-    <div className='container-fluid' >
+    <div className='container-fluid'>
      <Header/>
-     <hr />
+     <hr style={{color :'#fac264'}} className='fs-1' />
      <Routes>
       
       {!isLoggedIn?(<>  <Route path="/" element={<Home/>}/>

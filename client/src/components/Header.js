@@ -13,39 +13,27 @@ const dispatch = useDispatch();
 const navigate = useNavigate();
 
   return (
-    
-    <Navbar bg="light" expand="lg" className='mt-2'>
-      <Container fluid>
-        <Navbar.Brand href="/">STUDYPLANNER</Navbar.Brand>
+    <div  >
+    <Navbar  expand="lg" className='pt-3'   >
+      <Container fluid >
+        <Navbar.Brand href="/" style={{color:"#324e8f"}}>STUDY-PLANNER</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            {isLoggedIn && <Nav.Link href="/">HOME</Nav.Link>}
-            {isLoggedIn && <Nav.Link href="/studysessions">STUDYSESSIONS</Nav.Link>}
-            {isLoggedIn && <Nav.Link href="/createsessions">CREATE SESSIONS</Nav.Link>}
-            
-      
-            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
+          <Nav className="me-auto" >
+            {isLoggedIn && <Nav.Link href="/" style={{color:"#324e8f"}}>HOME</Nav.Link>}
+            {isLoggedIn && <Nav.Link href="/studysessions" style={{color:"#324e8f"}}>STUDY-SESSIONS</Nav.Link>}
+            {isLoggedIn && <Nav.Link href="/createsessions" style={{color:"#324e8f"}}>CREATE-SESSIONS</Nav.Link>}
+    
           </Nav>
           <Nav >
-          { !isLoggedIn && <Nav.Link href="/login">LOGIN</Nav.Link>}
+          { !isLoggedIn && <Nav.Link href="/login" style={{color:"#324e8f"}}>LOGIN</Nav.Link>}
           {isLoggedIn &&<Nav.Link onClick={()=>{dispatch(authActions.logout());
-            navigate("/");}} >LOGOUT</Nav.Link> }
+            navigate("/");}} style={{color:"#324e8f"}}>LOGOUT</Nav.Link> }
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
- 
+    </div>
   );
 }
 

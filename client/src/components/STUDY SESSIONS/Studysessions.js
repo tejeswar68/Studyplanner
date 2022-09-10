@@ -15,6 +15,7 @@ function Studysessions() {
   const reloadStories = (flag) => {
     setFlag(flag);
   }
+ 
   
   useEffect(() => {
     sendRequest().then(data => setSess(data.courses));
@@ -26,17 +27,12 @@ function Studysessions() {
   
     <Row className='flex' xs={1} md={3}>
     
-    { sess && sess.map((session,index)=>( <Col  >   <StudySession key={index} title={session.title} subject={session.subject} startDate={session.startDate} endDate={session.startDate} capacity={session.capacity} isCreator={localStorage.getItem("userId")===session.creator} id={session._id} users={session.users} flag= {flag}reloadStories={reloadStories}/></Col>
+    { sess && sess.map((session,index)=>( <Col  >   <StudySession key={index} title={session.title} subject={session.subject} startDate={session.startDate} startTime={session.startTime} endDate={session.startDate} endTime={session.endTime} capacity={session.capacity} isCreator={localStorage.getItem("userId")===session.creator} id={session._id} users={session.users} flag= {flag}reloadStories={reloadStories}/></Col>
    
 
    ))
   }
    </Row> 
-
-  
-        
-        
-
     </div>
   )
 }

@@ -19,7 +19,7 @@ export const getAllCourse = async (req,res,next)=>
 
 export const createCourse = async (req,res,next)=>
 {
-    const {title,subject, startDate,endDate,capacity,creator} = req.body;
+    const {title,subject, startDate,startTime,endDate,endTime,capacity,creator} = req.body;
 
     let existingUser;
 
@@ -36,7 +36,9 @@ export const createCourse = async (req,res,next)=>
         title,
         subject,
         startDate,
+        startTime,
         endDate,
+        endTime,
         capacity,
         creator,
         users:[],
@@ -99,4 +101,21 @@ export const joinCourse = async (req,res,next)=>
         return res.status(500).json({message:err});
     }
     return res.status(200).json({message:"SUCCESFULLY ENROLLED INTO THE COURSE!"});
+}
+export const getCourseById = async(req,res,next)=>
+{
+    const id = req.params.id;
+
+    let course;
+
+    try {
+        course = await Course.findById(id);
+    } catch (error) {
+        return console.log(error);
+    }
+    if(!course)
+    {
+        return res.status(404),json({message:"NO COURSE FOUND!"});
+    }
+    return res.status(200).json({course});
 }

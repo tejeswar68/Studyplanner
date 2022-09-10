@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../Store';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import loginpic from "./images/loginpic.png";
 
 function Login() {
   const navigate = useNavigate();
@@ -47,13 +48,13 @@ function Login() {
    
     <div>
       <Row>
-          <Col sm={12} md={10} className='mx-auto mt-5 mb-4'>
-          <form className='border border-primary  p-4  bg-opacity-50 shadow rounded-3' style={{color:'blue'}} onSubmit={handleSubmit(onFormSubmit)} >
+          <Col sm={12} md={6} className='mx-auto mt-5 mb-4'>
+          <form className=' p-4  bg-opacity-50 border-success border shadow rounded-3' style={{color:'#4c7464'}} onSubmit={handleSubmit(onFormSubmit)} >
                         <Row>
-                        <Col xs={12} md={6}></Col>
+                        <Col xs={12} md={6}><img src={loginpic} alt='' className='d-block m-auto h-100' /></Col>
                         <Col xs={12} md={6}>
-                        <div className='m-5'>
-                                <p className='display-6 text-center'>EXPERIENCE THE ERAVERSE!</p>
+                        <div className='m-3'>
+                                <p className='fs-3 text-center'>EXPERIENCE THE STUDY-PLANNER!</p>
                             </div>
                             <hr />
                             {/* email */}
