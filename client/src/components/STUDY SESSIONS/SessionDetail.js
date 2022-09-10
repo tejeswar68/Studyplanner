@@ -2,13 +2,12 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import detailpng from "../images/detailpng.jpeg"
-import { Row, Col } from 'react-bootstrap'
+// import { Row, Col } from 'react-bootstrap'
 
 function SessionDetail() {
   const id = useParams().id;
   console.log(id);
   const [course, setCourse] = useState();
-  const [flag, setFlag] = useState(false);
   const sendRequest = async () => {
     const res = await axios.get(`http://localhost:5000/api/course/${id}`)
       .catch(err => console.log(err))

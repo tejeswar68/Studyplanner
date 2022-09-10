@@ -7,6 +7,8 @@ import courseRouter from "./routes/Course-routes.js";
 import dotenv from 'dotenv';
 import path from 'path';
 
+
+
 dotenv.config();
 const App = express();
 
@@ -16,7 +18,27 @@ App.use(express.json());
 App.use("/api/user",userrouter);
 App.use("/api/course",courseRouter)
 
+//------------deployment------------
 
+const __dirname = path.resolve();
+if(process.env.NODE_ENV === 'production')
+{
+ App.use(express.static(path.join(__dirname,"../client/build")));
+ App.get('*',(req,res)=>
+ {
+    res.sendFile(path.resolve(__dirname,'../client','build','index.html'))
+ })
+}
+else
+{
+   App.get("/",(req,res)=>
+   {
+    res.send("API is running...")
+   }) 
+}
+
+
+//------------deployment--------------
 const PORT = process.env.PORT||5000;
 
 mongoose.connect(process.env.CONNECTION_URL)
