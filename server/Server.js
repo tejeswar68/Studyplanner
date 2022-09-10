@@ -20,22 +20,22 @@ App.use("/api/course",courseRouter)
 
 //------------deployment------------
 
-const __dirname = path.resolve();
-if(process.env.NODE_ENV === 'production')
-{
- App.use(express.static(path.join(__dirname,"../client/build")));
- App.get('*',(req,res)=>
- {
-    res.sendFile(path.resolve(__dirname,'../client','build','index.html'))
- })
-}
-else
-{
-   App.get("/",(req,res)=>
-   {
-    res.send("API is running...")
-   }) 
-}
+// const __dirname = path.resolve();
+// if(process.env.NODE_ENV === 'production')
+// {
+//  App.use(express.static(path.join(__dirname,"../client/build")));
+//  App.get('*',(req,res)=>
+//  {
+//     res.sendFile(path.resolve(__dirname,'../client','build','index.html'))
+//  })
+// }
+// else
+// {
+//    App.get("/",(req,res)=>
+//    {
+//     res.send("API is running...")
+//    }) 
+// }
 
 
 //------------deployment--------------
