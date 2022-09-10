@@ -39,9 +39,8 @@ else
 
 
 //------------deployment--------------
-const PORT = process.env.PORT||5000;
 
 mongoose.connect(process.env.CONNECTION_URL)
-    .then(() => App.listen(PORT))
+    .then(() => App.listen(process.env.PORT||5000))
     .then(() => console.log("Connected to database and server listening on port 5000"))
     .catch((err) => console.log(err))
