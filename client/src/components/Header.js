@@ -4,11 +4,13 @@ import Navbar from 'react-bootstrap/Navbar';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../Store';
+import { useNavigate } from 'react-router-dom';
 
 
 function BasicExample() {
   const isLoggedIn = useSelector((state)=>state.isLoggedIn);
 const dispatch = useDispatch();
+const navigate = useNavigate();
 
   return (
     
@@ -37,7 +39,8 @@ const dispatch = useDispatch();
           </Nav>
           <Nav >
           { !isLoggedIn && <Nav.Link href="/login">LOGIN</Nav.Link>}
-          {isLoggedIn &&<Nav.Link onClick={()=>dispatch(authActions.logout())} >LOGOUT</Nav.Link> }
+          {isLoggedIn &&<Nav.Link onClick={()=>{dispatch(authActions.logout());
+            navigate("/");}} >LOGOUT</Nav.Link> }
           </Nav>
         </Navbar.Collapse>
       </Container>

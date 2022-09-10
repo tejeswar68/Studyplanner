@@ -64,7 +64,7 @@ export const joinCourse = async (req,res,next)=>
     try {
         existingCourse = await Course.findById(courseId);
         existingUser = await User.findById(userId);
-        enrolledUser = await Course.findOne({users:userId});
+        // enrolledUser = await Course.findOne({users:userId});
         
       
     } catch (error) {
@@ -79,10 +79,10 @@ export const joinCourse = async (req,res,next)=>
     {
         return res.status(400).json({message:"CREATOR CANNONT ENROLL AGAIN!"})
     }
-    else if(enrolledUser)
-    {
-        return res.status(400).json({message:"ALREADY ENROLLED TO THE COURSE!"})
-    }
+    // else if(enrolledUser)
+    // {
+    //     return res.status(400).json({message:"ALREADY ENROLLED TO THE COURSE!"})
+    // }
   
     try
     {
@@ -98,5 +98,5 @@ export const joinCourse = async (req,res,next)=>
     {
         return res.status(500).json({message:err});
     }
-    return res.status(200).json({existingCourse});
+    return res.status(200).json({message:"SUCCESFULLY ENROLLED INTO THE COURSE!"});
 }

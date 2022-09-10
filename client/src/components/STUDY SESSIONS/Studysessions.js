@@ -5,15 +5,20 @@ import {Row,Col} from 'react-bootstrap'
 function Studysessions() {
 
   const [sess, setSess] = useState();
+  const [flag, setFlag] = useState(false);
   const sendRequest = async () => {
-    const res = await axios.get("http://studyplanner68.herokuapp.com/api/course")
+    const res = await axios.get("http://localhost:5000/api/course")
       .catch(err => console.log(err));
     const data = await res.data;
     return data;
   }
+  const reloadStories = (flag) => {
+    setFlag(flag);
+  }
+  
   useEffect(() => {
     sendRequest().then(data => setSess(data.courses));
-  }, [])
+  }, [flag])
   console.log(sess);
   
   return (
@@ -21,7 +26,7 @@ function Studysessions() {
   
     <Row className='flex' xs={1} md={3}>
     
-    { sess && sess.map((session,index)=>( <Col  >   <StudySession title={session.title} subject={session.subject} startDate={session.startDate} endDate={session.startDate} capacity={session.capacity} isCreator={localStorage.getItem("userId")===session.creator} id={session._id} /></Col>
+    { sess && sess.map((session,index)=>( <Col  >   <StudySession key={index} title={session.title} subject={session.subject} startDate={session.startDate} endDate={session.startDate} capacity={session.capacity} isCreator={localStorage.getItem("userId")===session.creator} id={session._id} users={session.users} flag= {flag}reloadStories={reloadStories}/></Col>
    
 
    ))

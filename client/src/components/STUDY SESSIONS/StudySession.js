@@ -5,7 +5,7 @@ import {Row,Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function StudySession({title,subject,startDate,endDate,capacity,isCreator,id}) {
+function StudySession({title,subject,startDate,endDate,capacity,isCreator,id,users,flag,reloadStories}) {
     const navigate = useNavigate();
     const handleopen =()=>
     {
@@ -13,26 +13,44 @@ function StudySession({title,subject,startDate,endDate,capacity,isCreator,id}) {
     }
     const handleEnroll = async (id)=>
     {
-        const res = await axios.put(`http://studyplanner68.herokuapp.com/api/course/join/${id}`,{
+        const res = await axios.put(`http://localhost:5000/api/course/join/${id}`,{
             userId:localStorage.getItem("userId")
         })
-        const data = res.data;
+       
+        const data =   await res.data;
         console.log(data);
-        return data;
+         await reloadStories(!flag);
+      
 
         
+    }
+    // const isenrolled= ()=>
+    // {
+
+    // }
+    const disabled = ()=>
+    {
+      if(users.length === capacity)
+      return true;
+
+      return false;
     }
 
     return (
         <Card className=" m-3">
-          <Card.Header>{subject}</Card.Header>
+          <Card.Header className='fs-5'>{subject}</Card.Header>
           <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>
-            CAPACITY:{capacity  }
+              <Row>
+                <Col>  Capacity : {capacity  } </Col>
+                <Col>  Enrolled:{users.length}</Col>
+              </Row>
+          
             </Card.Text>
-           {isCreator && <Button onClick={handleopen}  variant="primary">OPEN</Button>}
-           {!isCreator && <Button onClick={()=>{handleEnroll(id); navigate(`/studysessions/${id}`);}} variant="primary">ENROLL</Button>}
+            
+           {isCreator ?  (<Button onClick={handleopen}  variant="primary">OPEN</Button>) :
+           ( (users.some(enrolled_id => enrolled_id === localStorage.getItem("userId")) ) ? (<Button onClick={handleopen} variant="primary">OPEN</Button>) :(<Button onClick={()=>{handleEnroll(id); navigate(`/studysessions/${id}`);}} variant="primary" disabled={disabled()}>ENROLL</Button>))}
           </Card.Body>
           <Card.Footer className="text-muted">
             <Row>

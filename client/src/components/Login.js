@@ -4,30 +4,41 @@ import {Row,Col,Button} from 'react-bootstrap'
 import { useDispatch } from 'react-redux';
 import { authActions } from '../Store';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onFormSubmit=(userCredObj)=>
   {
     console.log(userCredObj);
-    const sendRequest =  async ()=>
+    const sendRequest =  async (req,next)=>
     {
-      const res = await axios.post("http://studyplanner68.herokuapp.com/api/user/login",
+      const res = await axios.post("http://localhost:5000/api/user/login",
       {
         email:userCredObj.email,
         password:userCredObj.password
       }).catch(err=>console.log(err));
-    
-    
-      const data = await res.data;
+      if(res.data.message==="Incorrect Password!")
+        alert("hi")
+     
+        const data = await res.data;
       console.log(data);
       return data;
+   
     }
     sendRequest()
-    .then((data)=>localStorage.setItem("userId",data.user._id))
-    .then(()=>dispatch(authActions.login()))
-    .catch(alert("Incorrect Password"))
+    .then((data)=>{if(data)
+    {localStorage.setItem("userId", data.user._id);
+   dispatch(authActions.login());
+    navigate("/");
+  }
+    else
+     {window.alert("Incorrect Password!");
+    }})
+    
+  
     
 
   }
@@ -37,7 +48,7 @@ function Login() {
     <div>
       <Row>
           <Col sm={12} md={10} className='mx-auto mt-5 mb-4'>
-          <form className='border border-info p-4  bg-opacity-50 shadow rounded-3' style={{color:'skyblue'}} onSubmit={handleSubmit(onFormSubmit)} >
+          <form className='border border-primary  p-4  bg-opacity-50 shadow rounded-3' style={{color:'blue'}} onSubmit={handleSubmit(onFormSubmit)} >
                         <Row>
                         <Col xs={12} md={6}></Col>
                         <Col xs={12} md={6}>
@@ -64,7 +75,7 @@ function Login() {
                             {/* login button */}
                             <div className='mb-1 text-center'>
                                 {/* <button type="submit" className="btn  w-50 mb-1" style={{ borderRadius: '15px', backgroundColor: 'orange', color: '' }}>Login</button> */}
-                                <Button type='submit' variant='outline-info' size="lg">Login</Button>
+                                <Button type='submit' variant='outline-primary' size="lg">Login</Button>
                             </div>
                             <div className='row mt-4'>
                                 <div className='col-6 text-end mt-2'>
@@ -72,7 +83,7 @@ function Login() {
                                 </div>
                                 <div className='col-6 text-start'>
                                     {/* <Button href="signup" className='  border-warning border' style={{ borderRadius: '15px', color: 'black' ,backgroundColor:'yellow'}}>SIGNUP</Button> */}
-                                    <Button href="signup" variant='outline-info'>Signup</Button>
+                                    <Button href="signup" variant='outline-primary'>Signup</Button>
                                 </div>
 
                             </div>
