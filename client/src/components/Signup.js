@@ -13,7 +13,7 @@ function Signup() {
     console.log(userCredObj);
     const sendRequest = async ()=>
     {
-      const res = await axios.post("http://localhost:5000/api/user/signup",
+      const res = await axios.post("https://studyplanner68.herokuapp.com/api/user/signup",
       {
         name : userCredObj.name,
         email:userCredObj.email,

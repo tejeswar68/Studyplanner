@@ -1,3 +1,8 @@
+APP IS DEPLOYED TO PRODUCTION-READY ENVIRONMENT
+
+https://studyplanner68.herokuapp.com/
+
+
 
 I. Database design:
 -----------------------

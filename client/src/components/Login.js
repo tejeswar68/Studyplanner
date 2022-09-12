@@ -14,7 +14,7 @@ function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onFormSubmit = (userCredObj) => {
     const sendRequest = async () => {
-      const res = await axios.post("http://localhost:5000/api/user/login",
+      const res = await axios.post("https://studyplanner68.herokuapp.com/api/user/login",
         {
           email: userCredObj.email,
           password: userCredObj.password

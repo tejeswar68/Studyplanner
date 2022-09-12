@@ -13,7 +13,7 @@ function AddStudySession() {
     {
         const sendRequest = async()=>
         {
-            const res = await axios.post("http://localhost:5000/api/course/create",
+            const res = await axios.post("https://studyplanner68.herokuapp.com/api/course/create",
             {
                 title:obj.title,
                 subject:obj.subject,

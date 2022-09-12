@@ -14,7 +14,7 @@ function StudySession({key,title,subject,startDate,startTime,endDate,endTime,cap
     }
     const handleEnroll = async (id)=>
     {
-        const res = await axios.put(`http://localhost:5000/api/course/join/${id}`,{
+        const res = await axios.put(`https://studyplanner68.herokuapp.com/api/course/join/${id}`,{
             userId:localStorage.getItem("userId")
         })
        
