@@ -6,20 +6,24 @@ import { authActions } from '../Store';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import loginpic from "./images/loginpic.png";
+import useButtonLoader from './useButtonLoader';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [check, setCheck] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [loginButton,isLoading] = useButtonLoader("Login","Logging In...");
   const onFormSubmit = (userCredObj) => {
     const sendRequest = async () => {
-      const res = await axios.post("https://studyplanner68.herokuapp.com/api/user/login",
+      isLoading(true);
+      const res = await axios.post("http://localhost:5000/api/user/login",
         {
           email: userCredObj.email,
           password: userCredObj.password
         }).catch(err => {
           setCheck(true);
+          isLoading(false);
         });
 
       const data = await res.data;
@@ -29,17 +33,14 @@ function Login() {
     }
     sendRequest()
       .then((data) => {
-        if (data) {
-          console.log(data);
+       
           localStorage.setItem("userId", data.user._id);
           setCheck(false);
           dispatch(authActions.login());
+          isLoading(false);
           navigate("/");
           
-        }
-        else {
-          console.log("hi");
-        }
+      
       })
 
 
@@ -82,7 +83,7 @@ function Login() {
                 {/* login button */}
                 <div className='mb-1 text-center'>
                   {/* <button type="submit" className="btn  w-50 mb-1" style={{ borderRadius: '15px', backgroundColor: 'orange', color: '' }}>Login</button> */}
-                  <Button type='submit' variant='outline-primary' size="lg">Login</Button>
+                  <Button type='submit' variant='outline-primary' ref={loginButton} size="lg">Login</Button>
                 </div>
                 <div className='row mt-4'>
                   <div className='col-6 text-end mt-2'>

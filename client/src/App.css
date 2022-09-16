@@ -5,3 +5,12 @@
     -webkit-text-stroke: 2px;
     -webkit-text-stroke-color:  black;
   }
+
+  #navcolors
+  {
+    color: #324e8f;
+  }
+  #navcolors:hover
+  {
+    color: #a17ff5;
+  }

@@ -9,7 +9,7 @@ function SessionDetail() {
   console.log(id);
   const [course, setCourse] = useState();
   const sendRequest = async () => {
-    const res = await axios.get(`https://studyplanner68.herokuapp.com/api/course/${id}`)
+    const res = await axios.get(`http://localhost:5000/api/course/${id}`)
       .catch(err => console.log(err))
     const data = res.data;
     return data;

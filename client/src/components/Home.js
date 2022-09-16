@@ -6,9 +6,11 @@ import homeimage1 from "./images/homeimage1.jpeg";
 function Home() {
   
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+
   return (
 
     <div>
+    
       <Row>
      <Col xs={12} lg ={6}>
      <div  className=' fs-6 ' style={{color:"#324e8f"}}>

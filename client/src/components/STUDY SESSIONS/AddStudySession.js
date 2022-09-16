@@ -4,16 +4,19 @@ import {Row,Col,Button} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import addsession from '../images/addsession.jpg';
+import useButtonLoader from '../useButtonLoader';
+
 
 function AddStudySession() {
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    const[createButton,isLoading] = useButtonLoader("Create","Creating...")
     const onFormSubmit = (obj)=>
     {
         const sendRequest = async()=>
         {
-            const res = await axios.post("https://studyplanner68.herokuapp.com/api/course/create",
+            isLoading(true);
+            const res = await axios.post("http://localhost:5000/api/course/create",
             {
                 title:obj.title,
                 subject:obj.subject,
@@ -24,11 +27,13 @@ function AddStudySession() {
                 capacity:obj.capacity,
                 creator:localStorage.getItem("userId")
             })
-            .catch(err=>console.log(err))
+            .catch(err=>isLoading(false))
             const data = res.data;
             return data;
         }
-        sendRequest().then(()=>navigate("/studysessions"));
+        sendRequest()
+        .then(()=>isLoading(false))
+        .then(()=>navigate("/studysessions"));
     }
   return (
    
@@ -61,8 +66,8 @@ function AddStudySession() {
                             <Col>
                                   {/* startdate */}
                                 <div className="mb-3">
-                                    <label htmlFor="startDate" className='mt-1 mb-1 d-block m-auto'>START-DATE</label>
-                                    <input type="date" style={{ borderRadius: '15px' }} id="startDate" className="form-control " {...register("startDate", { required: true})} />
+                                    <label htmlFor="startDate" className='mt-1 mb-1 d-block m-auto'   placeholder="dd-mm-yyyy">START-DATE</label>
+                                    <input type="date" style={{ borderRadius: '15px' }} id="startDate" className="form-control " min={"15-09-2022"} {...register("startDate", { required: true})} />
                                     {/* validation error msg for startDate */}
                                     {errors.startDate?.type === 'required' && <p className='text-danger'>*startDate is required</p>}
                                  </div>
@@ -70,8 +75,8 @@ function AddStudySession() {
                           <Col>
                                   {/* startTime */}
                                 <div className="mb-3">
-                                    <label htmlFor="startTime" className='mt-1 mb-1 d-block m-auto'>START-TIME</label>
-                                    <input type="time" style={{ borderRadius: '15px' }} id="startTime" className="form-control " {...register("startTime", { required: true})} />
+                                    <label htmlFor="startTime" className='mt-1 mb-1 d-block m-auto' >START-TIME</label>
+                                    <input type="time" style={{ borderRadius: '15px' }} id="startTime"   className="form-control " {...register("startTime", { required: true})} />
                                     {/* validation error msg for startTime */}
                                     {errors.startTime?.type === 'required' && <p className='text-danger'>*startTime is required</p>}
                                  </div>
@@ -109,7 +114,7 @@ function AddStudySession() {
                           </div>
                           {/* submit button */}
                           <div className='mb-1 text-center'>
-                              <Button type='submit' variant='primary' size="lg">Create</Button>
+                              <Button type='submit' ref={createButton} variant='primary' size="lg">Create</Button>
                           </div>
 
                          

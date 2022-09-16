@@ -7,9 +7,11 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import {useSelector,useDispatch} from 'react-redux';
 import {authActions} from "./Store/index.js";
-import Studysessions from './components/STUDY SESSIONS/Studysessions';
+import CurrStudySessions from "./components/STUDY SESSIONS/CurrStudysessions";
 import AddStudySession from './components/STUDY SESSIONS/AddStudySession';
 import SessionDetail from './components/STUDY SESSIONS/SessionDetail';
+import UpcomStudySessions from './components/STUDY SESSIONS/UpcomStudySessions';
+import PrevStudySessions from './components/STUDY SESSIONS/PrevStudySessions';
 
 
 function App() {
@@ -36,9 +38,12 @@ function App() {
       (
         <>
       <Route path="/" element={<Home/>}/>
-        <Route path="/studysessions" element={<Studysessions/>} />
+        <Route path="/curstudysessions" element={<CurrStudySessions/>} />
+        <Route path="/prevstudysessions" element={<PrevStudySessions/>} />
         <Route path="/studysessions/:id" element={<SessionDetail/>} />
         <Route path="/createsessions" element={<AddStudySession/>}/>
+        <Route path="/upcomstudysessions" element={<UpcomStudySessions/>} />
+
         </>
       )}
     

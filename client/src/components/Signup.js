@@ -4,26 +4,30 @@ import {Row,Col,Button} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import signuppic from "./images/signup.png";
+import useButtonLoader from './useButtonLoader';
 
 function Signup() {
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const[signupButton,isLoading]  = useButtonLoader("Signup","Processing...");
   const onFormSubmit=(userCredObj)=>
   {
     console.log(userCredObj);
     const sendRequest = async ()=>
     {
-      const res = await axios.post("https://studyplanner68.herokuapp.com/api/user/signup",
+      isLoading(true);
+      const res = await axios.post("http://localhost:5000/api/user/signup",
       {
         name : userCredObj.name,
         email:userCredObj.email,
         password : userCredObj.password
-      })
+      }).catch((err)=>isLoading(false))
       const data = await res.data;
       return data;
 
     }
     sendRequest()
+    .then(()=>isLoading(false))
     .then(()=>navigate("/login"));
   }
 
@@ -65,7 +69,7 @@ function Signup() {
                             </div>
                             {/* Signup button */}
                             <div className='mb-1 text-center'>
-                                <Button type='submit' variant='outline-primary' size="lg">Signup</Button>
+                                <Button type='submit' variant='outline-primary' ref={signupButton} size="lg">Signup</Button>
                             </div>
                            
                         </Col>
