@@ -65,10 +65,10 @@ function StudySession({ key, title, subject, startDate, startTime, endDate, endT
         </Row>
         <Row className='flex'>
         <Col xs={3} >{isCreator  && <Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Creator</Badge>}</Col>
-          <Col xs={3} >{!isCreator&& isEnrolled  && <Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Member</Badge>}</Col>
+          <Col xs={3} >{!isCreator&& isEnrolled() && <Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Member</Badge>}</Col>
           <Col xs={3} >{!isEnrolled() && capdisabled() &&<Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Full</Badge>}</Col>
           <Col xs={3} >{isEnrolled() && futdisabled() &&<Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Upcmg</Badge>}</Col>
-          <Col xs={12} >{!isEnrolled() && !futdisabled() && !capdisabled()&&<Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Not Eligible</Badge>}</Col>
+          <Col xs={12} >{!isEnrolled() && !futdisabled() && !capdisabled()&&<Badge pill bg="warning" text="dark" className=' d-block mx-auto'>Not Enrolled</Badge>}</Col>
         </Row>
       </Card.Header>
 
