@@ -8,7 +8,7 @@ function CurStudysessions() {
   const [sess, setSess] = useState();
   const [flag, setFlag] = useState(false);
   const sendRequest = async () => {
-    const res = await axios.get("http://localhost:5000/api/course")
+    const res = await axios.get("https://studyplanner68.herokuapp.com/api/course")
       .catch(err => console.log(err));
     const data = await res.data;
     return data;
@@ -64,6 +64,7 @@ function CurStudysessions() {
   ))
   }
    </Row> 
+  
     </div>
   )
 }

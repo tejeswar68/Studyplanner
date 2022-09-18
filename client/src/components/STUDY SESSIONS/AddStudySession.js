@@ -16,7 +16,7 @@ function AddStudySession() {
         const sendRequest = async()=>
         {
             isLoading(true);
-            const res = await axios.post("http://localhost:5000/api/course/create",
+            const res = await axios.post("https://studyplanner68.herokuapp.com/api/course/create",
             {
                 title:obj.title,
                 subject:obj.subject,
@@ -33,7 +33,7 @@ function AddStudySession() {
         }
         sendRequest()
         .then(()=>isLoading(false))
-        .then(()=>navigate("/studysessions"));
+        .then(()=>navigate("/"));
     }
   return (
    
@@ -67,7 +67,7 @@ function AddStudySession() {
                                   {/* startdate */}
                                 <div className="mb-3">
                                     <label htmlFor="startDate" className='mt-1 mb-1 d-block m-auto'   placeholder="dd-mm-yyyy">START-DATE</label>
-                                    <input type="date" style={{ borderRadius: '15px' }} id="startDate" className="form-control " min={"15-09-2022"} {...register("startDate", { required: true})} />
+                                    <input type="date" style={{ borderRadius: '15px' }} id="startDate" className="form-control " {...register("startDate", { required: true})} />
                                     {/* validation error msg for startDate */}
                                     {errors.startDate?.type === 'required' && <p className='text-danger'>*startDate is required</p>}
                                  </div>
